@@ -3,15 +3,14 @@ package com.students.Server.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 /**
- * Класс сущность для взаимодействия с таблицей в БД "Students"
+ * Класс сущность для взаимодействия с таблицей в БД "admins"
  */
 @Setter
 @Getter
 @Entity
-@Table(name = "students")
-public class Students {
+@Table(name = "admins")
+public class AdminsEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +21,19 @@ public class Students {
     private String name;
     @Column(name = "patronymic")
     private String patronymic;
-    @Column(name = "faculty")
-    private String faculty;
     @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
-    public Students(){}
-    public Students(String surname, String name, String patronymic, String faculty, String login, String password) {
+    @Column(name = "position")
+    private String position;
+    public AdminsEntity(){};
+    public AdminsEntity(String surname, String name, String patronymic, String login, String password, String position) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
-        this.faculty = faculty;
         this.login = login;
         this.password = password;
+        this.position = position;
     }
 }

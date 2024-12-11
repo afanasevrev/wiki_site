@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "materials")
-public class Materials {
+public class MaterialsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -20,11 +20,11 @@ public class Materials {
     @Lob
     @Column(name = "pdf_file")
     private byte[] pdf_file;
-    public Materials(){}
-    public Materials(String material_name) {
+    public MaterialsEntity(){}
+    public MaterialsEntity(String material_name) {
         this.material_name = material_name;
     }
-    public Materials(String material_name, byte[] pdf_id) {
+    public MaterialsEntity(String material_name, byte[] pdf_id) {
         this.material_name = material_name;
         this.pdf_file = pdf_id;
     }
