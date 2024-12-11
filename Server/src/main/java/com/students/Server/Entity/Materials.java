@@ -1,4 +1,4 @@
-package com.students.Server.DB;
+package com.students.Server.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
