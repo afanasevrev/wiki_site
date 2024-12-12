@@ -14,8 +14,8 @@ public class ServerApplication {
 		return new AdminsServiceImpl();
 	}
 	@Bean
-	public StudentsService userService() {
-		return new StudentsServiceImpl();
+	public StudentService studentService() {
+		return new StudentServiceImpl();
 	}
 	@Bean
 	public MaterialsService materialsService() {
