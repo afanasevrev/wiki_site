@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Класс сущность для взаимодействия с таблицей в БД "StudentsEntity"
+ * Класс сущность для взаимодействия с таблицей в БД "StudentEntity"
  */
 @Setter
 @Getter
 @Entity
 @Table(name = "students")
-public class StudentsEntity {
+public class StudentEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,8 @@ public class StudentsEntity {
     private String login;
     @Column(name = "password")
     private String password;
-    public StudentsEntity(){}
-    public StudentsEntity(String surname, String name, String patronymic, String faculty, String login, String password) {
+    public StudentEntity(){}
+    public StudentEntity(String surname, String name, String patronymic, String faculty, String login, String password) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
