@@ -38,6 +38,6 @@ public class StudentServiceImpl implements StudentService {
         studentEntity.setName(entity.getName());
         studentEntity.setPatronymic(entity.getPatronymic());
         studentRepository.save(studentEntity);
-        return "Данные  студента обновлены";
+        return "Данные студента обновлены";
     }
 }
