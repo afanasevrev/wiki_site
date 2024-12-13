@@ -4,7 +4,9 @@ import com.students.Server.Entity.StudentEntity;
 import com.students.Server.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
-
+/**
+ * Класс для операций над данными студентов
+ */
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
@@ -32,7 +34,9 @@ public class StudentServiceImpl implements StudentService {
         studentEntity.setFaculty(entity.getFaculty());
         studentEntity.setLogin(entity.getLogin());
         studentEntity.setPassword(entity.getPassword());
-        
+        studentEntity.setSurname(entity.getSurname());
+        studentEntity.setName(entity.getName());
+        studentEntity.setPatronymic(entity.getPatronymic());
         studentRepository.save(studentEntity);
         return "Данные  студента обновлены";
     }
