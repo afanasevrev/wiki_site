@@ -42,8 +42,8 @@ public class WebController {
      */
     @PostMapping("/admins_page/add")
     private String addAdmin(@ModelAttribute AdminsEntity admins, Model model) {
-        System.out.println(admins.getLogin());
-        //adminsService.createAdmin(adminsEntity);
+        model.addAttribute("admins", admins);
+        adminsService.createAdmin(admins);
         return "add_admin";
     }
 }
