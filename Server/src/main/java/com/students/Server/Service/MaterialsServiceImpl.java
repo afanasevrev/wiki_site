@@ -27,7 +27,7 @@ public class MaterialsServiceImpl implements MaterialsService {
     @Override
     public String deleteMaterial(Long id) {
         materialsRepository.deleteById(id);
-        return "Материал удален из БД";
+        return "Материал удалён из БД";
     }
     @Override
     public String updateMaterial(MaterialsEntity entity, Long id) {
