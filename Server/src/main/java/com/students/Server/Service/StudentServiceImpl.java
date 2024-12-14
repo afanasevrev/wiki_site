@@ -3,10 +3,12 @@ package com.students.Server.Service;
 import com.students.Server.Entity.StudentEntity;
 import com.students.Server.Repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 /**
  * Класс для операций над данными студентов
  */
+@Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;

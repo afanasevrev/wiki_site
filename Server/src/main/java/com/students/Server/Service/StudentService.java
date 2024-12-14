@@ -1,9 +1,7 @@
 package com.students.Server.Service;
 
 import com.students.Server.Entity.StudentEntity;
-import org.springframework.stereotype.Service;
 import java.util.List;
-@Service
 public interface StudentService {
     String createStudent(StudentEntity entity);
     List<StudentEntity> readStudents();
