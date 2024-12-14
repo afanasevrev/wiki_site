@@ -24,6 +24,14 @@ public class WebController {
         return "home_page";
     }
     /**
+     * Страница для администраторов системы
+     * @return admins_page.html
+     */
+    @GetMapping("/admins_page")
+    private String getAdminsPage() {
+        return "admins_page";
+    }
+    /**
      * Откроется форма для добавления администратора
      * @return add_admin.html
      */
