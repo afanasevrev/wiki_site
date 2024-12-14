@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan
 public class ServerApplication {
 	@Bean
-	public AdminsService photoService() {
+	public AdminsService adminsService() {
 		return new AdminsServiceImpl();
 	}
 	@Bean

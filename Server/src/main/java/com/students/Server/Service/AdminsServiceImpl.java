@@ -1,11 +1,9 @@
 package com.students.Server.Service;
 
 import com.students.Server.Entity.AdminsEntity;
-import com.students.Server.Entity.StudentEntity;
 import com.students.Server.Repository.AdminsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 /**
  * Класс для операций над данными администраторов

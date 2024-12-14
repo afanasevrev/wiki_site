@@ -1,6 +1,7 @@
 package com.students.Server.Controller;
 
 import com.students.Server.Entity.AdminsEntity;
+import com.students.Server.Service.AdminsService;
 import com.students.Server.Service.AdminsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class WebController {
-    private AdminsServiceImpl adminsServiceImpl = new AdminsServiceImpl();
+    @Autowired
+    private AdminsService adminsService;
     /**
      * Главная страница сайта
      * @return home_page.html
@@ -28,19 +30,20 @@ public class WebController {
      * @return add_admin.html
      */
     @GetMapping("/admins_page/add")
-    private String addAdmin(Model model) {
+    private String addFormAdmin(Model model) {
         model.addAttribute("admins", new AdminsEntity());
         return "add_admin";
     }
     /**
      * Post - запрос от администратора на добавление администратора в БД
-     * @param adminsEntity
+     * @param admins
      * @param model
      * @return home_page.html
      */
     @PostMapping("/admins_page/add")
-    private String addAdmin(@ModelAttribute AdminsEntity adminsEntity, Model model) {
-        adminsServiceImpl.createAdmin(adminsEntity);
+    private String addAdmin(@ModelAttribute AdminsEntity admins, Model model) {
+        System.out.println(admins.getLogin());
+        //adminsService.createAdmin(adminsEntity);
         return "add_admin";
     }
 }
