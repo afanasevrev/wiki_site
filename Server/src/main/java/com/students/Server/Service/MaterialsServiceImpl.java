@@ -1,5 +1,6 @@
 package com.students.Server.Service;
 
+import com.students.Server.Entity.AdminsEntity;
 import com.students.Server.Entity.MaterialsEntity;
 import com.students.Server.Repository.MaterialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,22 +13,28 @@ public class MaterialsServiceImpl implements MaterialsService {
     private MaterialsRepository materialsRepository;
     @Override
     public String createMaterial(MaterialsEntity entity) {
-        return null;
+        materialsRepository.save(entity);
+        return "Новый материал добавлен";
     }
     @Override
     public List<MaterialsEntity> readMaterial() {
-        return null;
+        return materialsRepository.findAll();
     }
     @Override
     public MaterialsEntity readMaterial(Long id) {
-        return null;
+        return materialsRepository.findById(id).get();
     }
     @Override
     public String deleteMaterial(Long id) {
-        return null;
+        materialsRepository.deleteById(id);
+        return "Материал удален из БД";
     }
     @Override
     public String updateMaterial(MaterialsEntity entity, Long id) {
-        return null;
+        MaterialsEntity materialsEntity = materialsRepository.findById(id).get();
+        materialsEntity.setMaterial_name(entity.getMaterial_name());
+        materialsEntity.setPdf_file(entity.getPdf_file());
+        materialsRepository.save(entity);
+        return "Материал успешно обновлён в БД";
     }
 }
