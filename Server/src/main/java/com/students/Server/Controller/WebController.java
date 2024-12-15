@@ -127,4 +127,25 @@ public class WebController {
         model.addAttribute("materialsTemp", materialsTemp);
         return "materials";
     }
+    /**
+     * Страница со списком материалов для администраторов
+     * @param model список материалов
+     * @return materials_for_admins.html
+     */
+    @GetMapping("/materials_for_admins")
+    private String getMaterialsForAdmins(Model model) {
+        List<MaterialsEntity> materials = materialsService.readMaterial();
+        List<MaterialsTemp> materialsTemp = new ArrayList<>();
+        for (MaterialsEntity material: materials) {
+            materialsTemp.add(new MaterialsTemp(material.getId(), material.getMaterial_name()));
+        }
+        model.addAttribute("materialsTemp", materialsTemp);
+        return "materials_for_admins";
+    }
+    @GetMapping("/materials_for_admins/delete/{id}")
+    private String deleteMaterial(@PathVariable String id, Model model) {
+        Long material_id = Long.parseLong(id);
+        materialsService.deleteMaterial(material_id);
+        return "material_is_delete";
+    }
 }
