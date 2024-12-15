@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 /**
@@ -55,6 +56,7 @@ public class WebController {
     private String addAdmin(@ModelAttribute AdminsEntity admins, Model model) {
         model.addAttribute("admins", admins);
         adminsService.createAdmin(admins);
+        model.addAttribute("admins", new AdminsEntity());
         return "add_admin";
     }
     /**
@@ -68,5 +70,39 @@ public class WebController {
         List<StudentEntity> students = studentService.readStudents();
         model.addAttribute("students", students);
         return "students";
+    }
+    /**
+     * Страница форма для администратора на добавление студента в БД
+     * @param model
+     * @return add_student.html
+     */
+    @GetMapping("/admins_page/student/add")
+    private String addStudentForm(Model model) {
+        model.addAttribute("students", new StudentEntity());
+        return "add_student";
+    }
+    /**
+     * POST - запрос от администратора на добавление студента в БД
+     * @param students
+     * @param model
+     * @return add_student.html
+     */
+    @PostMapping("/admins_page/student/add")
+    private String addStudent(@ModelAttribute StudentEntity students, Model model) {
+        model.addAttribute("students", students);
+        studentService.createStudent(students);
+        model.addAttribute("students", new StudentEntity());
+        return "add_student";
+    }
+    /**
+     * Метод удаляет из БД студента
+     * @param id
+     * @return students.html
+     */
+    @GetMapping("/students/delete/{id}")
+    private String deleteStudent(@PathVariable String id) {
+        Long studentId = Long.parseLong(id);
+        studentService.deleteStudent(studentId);
+        return "student_dismiss";
     }
 }
