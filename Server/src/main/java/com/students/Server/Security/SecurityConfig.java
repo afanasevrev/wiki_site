@@ -7,6 +7,7 @@ import com.students.Server.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -53,11 +54,9 @@ public class SecurityConfig {
                         .requestMatchers("/css/**").hasRole("STUDENT")
                         .requestMatchers("/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                );
-                
-               // .formLogin().and() // Настройка формы логина
-              //  .httpBasic(); // Включение базовой аутентификации
-
+                )
+                .formLogin(Customizer.withDefaults()) // Настройка формы логина
+                .httpBasic(Customizer.withDefaults()); // Включение базовой аутентификации
         return http.build();
     }
 }
