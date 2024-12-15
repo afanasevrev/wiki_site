@@ -47,15 +47,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(authz -> authz
+                .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/").hasRole("STUDENT")
                         .requestMatchers("/materials/**").hasRole("STUDENT")
                         .requestMatchers("/css/**").hasRole("STUDENT")
                         .requestMatchers("/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                )
-                .formLogin().and() // Настройка формы логина
-                .httpBasic(); // Включение базовой аутентификации
+                );
+                
+               // .formLogin().and() // Настройка формы логина
+              //  .httpBasic(); // Включение базовой аутентификации
+
         return http.build();
     }
 }
