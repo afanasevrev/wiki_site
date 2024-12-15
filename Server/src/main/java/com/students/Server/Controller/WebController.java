@@ -8,13 +8,14 @@ import com.students.Server.Service.MaterialsService;
 import com.students.Server.Service.StudentService;
 import com.students.Server.Temp.MaterialsTemp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -147,5 +148,37 @@ public class WebController {
         Long material_id = Long.parseLong(id);
         materialsService.deleteMaterial(material_id);
         return "material_is_delete";
+    }
+    /**
+     * Страница материалов для администраторов
+     * @param model список материалов
+     * @return materials_for_admins.html
+     */
+    @GetMapping("/materials_for_admins/add")
+    private String addMaterialForm(Model model) {
+        model.addAttribute("materials", new MaterialsEntity());
+        return "add_material";
+    }
+    /**
+     * POST - запрос от администратора системы на добавление материала в БД
+     * @param file
+     * @return add_material.html
+     */
+    @PostMapping("/materials_for_admins/add")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+        // Здесь добавьте логику для обработки файла
+        try {
+            byte[] filePDF = file.getBytes();
+            materialsService.createMaterial(new MaterialsEntity(file.getOriginalFilename(), filePDF));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "add_material"; // Перенаправление или возврат ответа после обработки файла
+    }
+    @GetMapping("/materials/download/{id}")
+    private ResponseEntity<byte[]> downloadDocument(@PathVariable String id) {
+        Long documentId = Long.parseLong(id);
+        byte[] resource = materialsService.readMaterial(documentId).getPdf_file();
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=material.pdf").body(resource);
     }
 }
