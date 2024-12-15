@@ -1,9 +1,12 @@
 package com.students.Server.Controller;
 
 import com.students.Server.Entity.AdminsEntity;
+import com.students.Server.Entity.MaterialsEntity;
 import com.students.Server.Entity.StudentEntity;
 import com.students.Server.Service.AdminsService;
+import com.students.Server.Service.MaterialsService;
 import com.students.Server.Service.StudentService;
+import com.students.Server.Temp.MaterialsTemp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Контроллер - отвечает на запросы пользователей через браузер
@@ -21,6 +26,8 @@ public class WebController {
     private AdminsService adminsService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private MaterialsService materialsService;
     /**
      * Главная страница сайта
      * @return home_page.html
@@ -104,5 +111,20 @@ public class WebController {
         Long studentId = Long.parseLong(id);
         studentService.deleteStudent(studentId);
         return "student_dismiss";
+    }
+    /**
+     * Страница со списком учебных материалов
+     * @param model список материалов
+     * @return materials.html
+     */
+    @GetMapping("/materials")
+    private String getMaterials(Model model) {
+        List<MaterialsEntity> materials = materialsService.readMaterial();
+        List<MaterialsTemp> materialsTemp = new ArrayList<>();
+        for (MaterialsEntity material: materials) {
+            materialsTemp.add(new MaterialsTemp(material.getId(), material.getMaterial_name()));
+        }
+        model.addAttribute("materialsTemp", materialsTemp);
+        return "materials";
     }
 }
