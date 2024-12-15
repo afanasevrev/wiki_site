@@ -1,13 +1,16 @@
 package com.students.Server.Controller;
 
 import com.students.Server.Entity.AdminsEntity;
+import com.students.Server.Entity.StudentEntity;
 import com.students.Server.Service.AdminsService;
+import com.students.Server.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import java.util.List;
 /**
  * Контроллер - отвечает на запросы пользователей через браузер
  */
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class WebController {
     @Autowired
     private AdminsService adminsService;
+    @Autowired
+    private StudentService studentService;
     /**
      * Главная страница сайта
      * @return home_page.html
@@ -51,5 +56,17 @@ public class WebController {
         model.addAttribute("admins", admins);
         adminsService.createAdmin(admins);
         return "add_admin";
+    }
+    /**
+     * Страница список студентов для
+     * администраторов системы
+     * @param model список студентов
+     * @return students.html
+     */
+    @GetMapping("/students")
+    private String getStudents(Model model) {
+        List<StudentEntity> students = studentService.readStudents();
+        model.addAttribute("students", students);
+        return "students";
     }
 }
