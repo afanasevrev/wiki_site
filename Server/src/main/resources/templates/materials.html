@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учебные материалы</title>
+    <link type="text/css" rel ="stylesheet" th:href="@{css/bootstrap_styles.css}">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Светло-голубой цвет: Alice Blue */
+        }
+        h2 {
+            color: #333333; /* Темно-серый поставим для текстов */
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Список учебных материалов</h1>
+    <span th:if="${materialsTemp.size() == 0}">Список материалов пустой</span>
+    <table th:if="${materialsTemp.size() > 0}" class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <td>ID</td>
+            <td>Наименование</td>
+            <td>Действие</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="materialTemp : ${materialsTemp}">
+            <td th:text="${materialTemp.id}"></td>
+            <td th:text="${materialTemp.material_name}"></td>
+            <td>
+                <a class="btn btn-secondary btn-block" th:href="@{'/materials/download/' + ${materialTemp.id}}">Скачать</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Include Bootstrap's JS and jQuery if not already included in the project -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
